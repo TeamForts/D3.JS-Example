@@ -12,8 +12,8 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 export class PieComponent implements OnInit, AfterViewInit {
 
   private _svg: any;
-  private _width: number = 1000;
-  private _height: number = 400;
+  private _width: number = 400;
+  private _height: number = 350;
   private _margin: number = 50;
 
   public myForm: FormGroup;
@@ -23,8 +23,8 @@ export class PieComponent implements OnInit, AfterViewInit {
   public nowDataMinusSVG: any;
 
   private _arc: any = d3.arc()
-    .innerRadius(65)
-    .outerRadius(70)
+    .innerRadius(130)
+    .outerRadius(135)
 /*    .startAngle(0)
     .endAngle(Math.PI * 2 );*/
 
@@ -48,7 +48,7 @@ export class PieComponent implements OnInit, AfterViewInit {
       })
       .style("fill", "rgba(247, 147, 30,0)")
       .attr("d", this._arc)
-      .attr('transform', `translate(200,200)`);
+      .attr('transform', `translate(162,185)`);
     this.getData()
     // setInterval(() => this._changeColor(), 8000);
   }
@@ -86,10 +86,10 @@ export class PieComponent implements OnInit, AfterViewInit {
   private _createSvg(): void {
     this._svg = d3.selectAll('figure#pie')
       .append("svg")
-      .attr('width', this._width + this._margin)
-      .attr( 'height', this._height + this._margin)
+      .attr('width', '100%')
+      .attr( 'height', '400px')
       .append('g')
-      .attr('transform', `translate(${this._margin},${this._margin})`)
+     // .attr('transform', `translate(${this._margin},${this._margin})`)
   }
 
   private _changeColor(): void {
@@ -107,17 +107,21 @@ export class PieComponent implements OnInit, AfterViewInit {
       .duration(2000)
       .style('fill', '#565656')
 
+
   }
 
   private _drawCircle(): void {
+/*
     this._svg.append('circle')
-      .attr('cx',200)
-      .attr('cy',300)
-      .attr('r', 90)
+      .attr('cx',150)
+      .attr('cy',185)
+      .attr('r', 160)
       .style('fill', '#12151E')
-      .attr('transform', `translate(0,-100)`)
+      .attr('transform', `translate(0,0)`)
+*/
 
-    const arkOut: any = d3.arc()
+
+/*    const arkOut: any = d3.arc()
       .innerRadius(88)
       .outerRadius(90)
       .startAngle(0)
@@ -125,73 +129,96 @@ export class PieComponent implements OnInit, AfterViewInit {
     this._svg.append('path')
       .attr("d", arkOut)
       .style('fill', '#272A38')
-      .attr('transform', `translate(200,200)`);
+      .attr('transform', `translate(200,200)`);*/
 
+    const a: any = 135;
     const arkForeground: any = d3.arc()
-      .innerRadius(65)
-      .outerRadius(70)
+      .innerRadius(a-5)
+      .outerRadius(a)
       .startAngle(0)
       .endAngle(360 * Math.PI / 180);
     this._svg.append('path')
       .attr("d", arkForeground)
       .style('fill', 'rgba(247, 147, 30, 0.2)')
-      .attr('transform', `translate(200,200)`);
+      .attr('transform', `translate(162,185)`);
 
     const arkInFirst: any = d3.arc()
-      .innerRadius(63)
-      .outerRadius(65)
+      .innerRadius(a-7)
+      .outerRadius(a-5)
       .startAngle(0)
       .endAngle(360 * Math.PI / 180);
     this._svg.append('path')
       .attr("d", arkInFirst)
       .style('fill', '#272A38')
-      .attr('transform', `translate(200,200)`);
+      .attr('transform', `translate(162,185)`);
+
 
     const arkInSecond: any = d3.arc()
-      .innerRadius(70)
-      .outerRadius(72)
+      .innerRadius(a)
+      .outerRadius(a+2)
       .startAngle(0)
       .endAngle(360 * Math.PI / 180);
     this._svg.append('path')
       .attr("d", arkInSecond)
       .style('fill', '#272A38')
-      .attr('transform', `translate(200,200)`);
+      .attr('transform', `translate(162,185)`);
 
-    const allText = this._svg.append('div')
-      .attr('id','allText')
+
 
     this._svg.append('text')
       .attr("text-anchor", "middle")
+      .style('font-size','40px')
       .text('тн')
-      .attr('transform', 'translate(199,160)')
+      .attr('transform', 'translate(160,110)')
       .style('fill','#606580');
 
     this._svg.append('text')
       .attr("text-anchor", "middle")
+      .style('font-size','36px')
       .text('Выработка')
-      .attr('transform', 'translate(200,180)')
+      .attr('transform', 'translate(160,150)')
       .style('fill','white');
 
     this._svg.append('text')
       .attr("text-anchor", "middle")
+      .style('font-size','36px')
       .text(`${this.allData}`)
-      .attr('transform', 'translate(199,225)')
+      .attr('transform', 'translate(160,240)')
       .style('fill','#0089FF');
 
     this.nowDataSVG = this._svg.append('text')
       .attr("text-anchor", "middle")
+      .style('font-size','36px')
       .text(`${this.nowData}`)
-      .attr('transform', 'translate(199,205)')
+      .attr('transform', 'translate(160,195)')
       .attr('id','nowDataSVG')
       .style('fill','white');
 
     this.nowDataMinusSVG = this._svg.append('text')
       .attr("text-anchor", "middle")
+      .style('font-size','36px')
       .text(`${this.nowData - this.allData}`)
       .attr('id','nowDataMinusSVG')
-      .attr('transform', 'translate(196,245)')
+      .attr('transform', 'translate(155,280)')
       .style('fill','#F7931E');
 
+
+
+
+   /* const arkTop = this._svg.append('defs')
+      .append('g')
+      .attr('id','arkTop')
+      .append('path')
+      .attr('d', "M12.2512 71.2886C27.266 51.7712 46.7405 35.8627 69.15 25.0878L72.6431 28.2316C92.3375 19.0112 114.317 13.86 137.5 13.86C160.683 13.86 182.663 19.0112 202.357 28.2316L205.85 25.0878C228.26 35.8627 247.734 51.7712 262.749 71.2886H274.629C258.949 48.981 237.963 30.6728 213.506 18.1974C211.375 17.1103 209.217 16.0675 207.035 15.0702C185.855 5.39285 162.307 0 137.5 0C112.693 0 89.1451 5.39285 67.9654 15.0702C65.7827 16.0675 63.6251 17.1103 61.494 18.1974C37.0367 30.6728 16.0513 48.981 0.371094 71.2886H12.2512Z")
+      .style('fill',"#272A38")
+      .style('fill-opacity','0.5')*/
+
+
+
+
+
+    this._svg.append("g").attr("transform","translate(0,0)").attr("class","cloud")
+      .append("use").attr("xlink:href","#arkTop")
   }
 
 
@@ -200,9 +227,6 @@ export class PieComponent implements OnInit, AfterViewInit {
     const now = this.myForm.get('inputData')?.value;
     this.nowData = Number(this.myForm.get('inputData')?.value);
     this.nowData =(this.nowData / this.allData) * 100;
-    console.log(this.nowData);
-
-
 
 
     setInterval( () =>{

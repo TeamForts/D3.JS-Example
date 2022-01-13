@@ -12,6 +12,20 @@
   align-items: center;
 
 
+  .custom-bg {
+    margin: 500px 0 0 0;
+
+    width: 400px;
+    height: 400px;
+
+    position: absolute;
+    background: url(../../../../assets/icons/Body-speed.svg) no-repeat  50% 50%;
+
+    figure{
+      top: 0;
+      position: relative;
+    }
+  }
 
   /*.action{
     padding: 10px;
